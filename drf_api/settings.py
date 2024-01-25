@@ -13,6 +13,7 @@ https://docs.djangoproject.com/en/3.2/ref/settings/
 from pathlib import Path
 import os
 import dj_database_url
+from rest_framework.settings import api_settings
 
 if os.path.exists('env.py'):
     import env
@@ -39,8 +40,8 @@ REST_FRAMEWORK = {
 
 }
 if 'DEV' not in os.environ:
-    REST_FRAMEWORK['DEFAULT_RENDER_CLASSES'] = [
-        'rest_framework.renders.JSONRenderer',
+    api_settings.DEFAULT_RENDERER_CLASSES = [
+        'rest_framework.renderers.JSONRenderer',
     ]
 
 REST_USE_JWT = True
@@ -138,7 +139,7 @@ else:
     DATABASES = {
         'default': dj_database_url.parse(os.environ.get("DATABASE_URL"))
     }
-    # print('connected')
+    print(os.environ.get('DEV'))
 
 
 # Password validation
