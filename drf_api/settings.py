@@ -92,7 +92,9 @@ INSTALLED_APPS = [
     'likes',
     'followers',
 ]
-
+CORS_ALLOWED_ORIGINS = [
+    http://localhost:3000',
+]
 CORS_ALLOW_CREDENTIALS = True
 
 SITE_ID = 1 
@@ -138,7 +140,7 @@ if 'CLIENT_ORIGIN_DEV' in os.environ:
         rf"{extracted_url}(eu|us)\d+\w\.gitpod\.io$",
     ]
 
-
+    
 if 'DEV' in os.environ:
      DATABASES = {
          'default': {
