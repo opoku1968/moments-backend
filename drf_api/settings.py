@@ -62,7 +62,7 @@ SECRET_KEY = 'django-insecure-l$!n0!yzayiodqd9zya0af)n0tys&du5a3rzmj&d$_a$0p1l(w
 DEBUG = True
 
 # ALLOWED_HOSTS = ['8000-opoku1968-momentsbacken-d5jl1ehzudz.ws-eu107.gitpod.io']
-ALLOWED_HOSTS = ['localhost', 'backend-moments-053582d75bda.herokuapp.com']
+ALLOWED_HOSTS = ['localhost:3000', 'backend-moments-053582d75bda.herokuapp.com', "8000-opoku1968-momentsbacken-d5jl1ehzudz.ws-eu107.gitpod.io"]
 
 # Application definition
 
@@ -93,7 +93,7 @@ INSTALLED_APPS = [
     'followers',
 ]
 CORS_ALLOWED_ORIGINS = [
-    'http://localhost:3000',
+    *
 ]
 CORS_ALLOW_CREDENTIALS = True
 
