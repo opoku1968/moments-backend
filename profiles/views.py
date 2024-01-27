@@ -1,4 +1,4 @@
-from rest_framework import generics,filters
+from rest_framework import generics, filters
 from drf_api.permissions import isOwnerOrReadOnly
 from .models import Profile
 from .serializers import ProfileSerializer
@@ -11,20 +11,25 @@ class ProfileList(generics.ListAPIView):
     No create view as profile creation is handled by django signals.
     """
     queryset = Profile.objects.annotate(
-        posts_count = Count('owner__post',distinct=True),
-        followers_count = Count('owner__followed',distinct=True),
-        following_count = Count('owner__following',distinct=True),
-
+        posts_count=Count('owner__post', distinct=True),
+        followers_count=Count('owner__followed', distinct=True),
+        following_count=Count('owner__following', distinct=True),
     ).order_by('-created_at')
+
     serializer_class = ProfileSerializer
+
+    def list(self, request, *args, **kwargs):
+        response = super().list(request, *args, **kwargs)
+        print(response.data)  # Print the serialized data
+        return response
+
     filter_backends = [
         filters.OrderingFilter,
         DjangoFilterBackend,
-
     ]
-    filterset_fields =[
-       'owner__following__followed__profile',
-       'owner__followed__owner__profile',
+    filterset_fields = [
+        'owner__following__followed__profile',
+        'owner__followed__owner__profile',
     ]
     ordering_fields = [
         'posts_count',
@@ -34,11 +39,24 @@ class ProfileList(generics.ListAPIView):
         'owner__followed__created_at',
     ]
 
+    def get_serializer_context(self):
+        # Include necessary context data for the serializer
+        context = super().get_serializer_context()
+        context['request'] = self.request
+        return context
+
 
 class ProfileDetail(generics.RetrieveUpdateAPIView):
-    """
-    Retrieve or update a profile if you're the owner.
-    """
+    queryset = Profile.objects.annotate(
+        posts_count=Count('owner__post', distinct=True),
+        followers_count=Count('owner__followed', distinct=True),
+        following_count=Count('owner__following', distinct=True),
+    ).order_by('-created_at')
+    serializer_class = ProfileSerializer
     permission_classes = [isOwnerOrReadOnly]
-    queryset = Profile.objects.all()
-    serializer_class = ProfileSerializer                          
+
+    def get_serializer_context(self):
+        # Include necessary context data for the serializer
+        context = super().get_serializer_context()
+        context['request'] = self.request
+        return context
