@@ -139,18 +139,18 @@ WSGI_APPLICATION = 'drf_api.wsgi.application'
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
 
 
-if 'CLIENT_ORIGIN_DEV' in os.environ:
-    extracted_url = re.match(r'^.+-', os.environ.get('CLIENT_ORIGIN_DEV', ''), re.IGNORECASE).group(0)
-    CORS_ALLOWED_ORIGIN_REGEXES = [
-        rf"{extracted_url}(eu|us)\d+\w\.gitpod\.io$",
-    ]
-
 # if 'CLIENT_ORIGIN_DEV' in os.environ:
-#     extracted_url = re.match(r'^([^.]+)', os.environ.get('CLIENT_ORIGIN_DEV', ''), re.IGNORECASE).group(0)
-
+#     extracted_url = re.match(r'^.+-', os.environ.get('CLIENT_ORIGIN_DEV', ''), re.IGNORECASE).group(0)
 #     CORS_ALLOWED_ORIGIN_REGEXES = [
-#         rf"{extracted_url}.(eu|us)\d+\.codeanyapp\.com$",
+#         rf"{extracted_url}(eu|us)\d+\w\.gitpod\.io$",
 #     ]
+
+if 'CLIENT_ORIGIN_DEV' in os.environ:
+    extracted_url = re.match(r'^([^.]+)', os.environ.get('CLIENT_ORIGIN_DEV', ''), re.IGNORECASE).group(0)
+
+    CORS_ALLOWED_ORIGIN_REGEXES = [
+        rf"{extracted_url}.(eu|us)\d+\.codeanyapp\.com$",
+    ]
 
     
 if 'DEV' in os.environ:
