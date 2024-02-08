@@ -94,6 +94,7 @@ INSTALLED_APPS = [
 ]
 CORS_ALLOWED_ORIGINS = [
    'http://localhost:3000'
+   'https://moments-frontend-21e28627c0cd.herokuapp.com'
 ]
 
 
