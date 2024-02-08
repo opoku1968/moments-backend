@@ -51,8 +51,9 @@ JWT_AUTH_SECURE = True
 JWT_AUTH_COOKIE = 'my-app-auth'
 JWT_AUTH_REFRESH_COOKIE = 'my-refresh_token'
 
-JWT_EXPIRATION_DELTA = timedelta(hours=3)
-
+JWT_AUTH = {
+    'JWT_EXPIRATION_DELTA': timedelta(hours=3),
+}
 REST_AUTH_SERIALIZERS = {
     'USER_DETAILS_SERIALIZER': 'drf_api.serializers.CurrentUserSerializer'
 }
