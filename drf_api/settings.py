@@ -93,8 +93,9 @@ INSTALLED_APPS = [
     'followers',
 ]
 CORS_ALLOWED_ORIGINS = [
+   https://moments-frontend-21e28627c0cd.herokuapp.com/,
    'http://localhost:3000',
-   'https://moments-frontend-21e28627c0cd.herokuapp.com'
+
 ]
 
 
